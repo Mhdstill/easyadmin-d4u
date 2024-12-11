@@ -1,0 +1,210 @@
+{# templates/bundles/EasyAdminBundle/layout.html.twig #}
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('assets/styles/admin.css') }}">
+    {% endblock %}
+
+    {% block content_top_header %}
+        <div class="flex items-center justify-between py-1 w-full">
+            {# Left side - Breadcrumb #}
+            <div class="flex items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="flex items-center">
+                        <li class="flex items-center">
+                            <a href="{{ path('admin') }}" style="letter-spacing: 0.50px; line-height: 20px; color: var(--main-color);">
+                                Application
+                            </a>
+                        </li>
+
+                        {% if ea.crud.currentAction is defined %}
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400" style="letter-spacing: 0.50px; line-height: 20px; font-size: 0.65rem;">
+                                    <i class="fa-regular fa-chevron-right"></i>
+                                </span>
+                                {% if ea.crud.currentAction == 'index' %}
+                                    <span class="text-gray-900 font-medium" style="letter-spacing: 0.50px; line-height: 20px;">
+                                        {{ ea.crud.entityFqcn|split('\\')|last|replace({'Entity': ''}) }}
+                                    </span>
+                                {% else %}
+                                    <a href="{{ ea_url().setController(ea.crud.controllerFqcn).unset('crudAction') }}" style="letter-spacing: 0.50px; line-height: 20px; color: var(--main-color);">
+                                        {{ ea.crud.entityFqcn|split('\\')|last|replace({'Entity': ''}) }}
+                                    </a>
+                                {% endif %}
+                            </li>
+
+                            {% if ea.crud.currentAction != 'index' %}
+                                <li class="flex items-center">
+                                    <span class="mx-2 text-gray-400" style="letter-spacing: 0.50px; line-height: 20px; font-size: 0.65rem;">
+                                        <i class="fa-regular fa-chevron-right"></i>
+                                    </span>
+                                    <span class="text-gray-900 font-medium" style="letter-spacing: 0.50px; line-height: 20px;">
+                                        {{ ea.crud.currentAction|capitalize }}
+                                    </span>
+                                </li>
+                            {% endif %}
+                        {% elseif custom_title is defined %}
+                            <li class="flex items-center">
+                                <span class="mx-2 text-gray-400" style="letter-spacing: 0.50px; line-height: 20px; font-size: 0.65rem;">
+                                    <i class="fa-regular fa-chevron-right"></i>
+                                </span>
+                                <span class="text-gray-900 font-medium" style="letter-spacing: 0.50px; line-height: 20px;">
+                                    {{ custom_title }}
+                                </span>
+                            </li>
+                        {% endif %}
+                    </ol>
+                </nav>
+            </div>
+
+            {# Right side - Search & User #}
+            <div class="flex items-center space-x-4">
+                <div class="dropdown relative">
+                    <button type="button" class="custom-button bg-white hover:bg-white" id="operation-button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                        {% if app.session.get('current_operation') %}
+                            Opération #
+                            {{ app.session.get('current_operation').id }}
+                        {% else %}
+                            Sélectionner une opération
+                        {% endif %}
+                        <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="operation-button">
+                        {% if app.user %}
+                            {% for operation in app.user.operations %}
+                                <li>
+                                    <a class="dropdown-item text-gray-700 px-4 py-2 text-sm hover:bg-gray-100" href="{{ path('admin_switch_operation', {'id': operation.id}) }}">
+                                        Opération #
+                                        {{ operation.id }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div data-tw-placement="bottom-end" class="dropdown relative mx-4">
+
+                    <div data-tw-toggle="dropdown" aria-expanded="false" class="cursor-pointer relative block text-slate-600 outline-none before:absolute before:right-0 before:top-[-2px] before:h-[8px] before:w-[8px] before:rounded-full before:bg-danger before:content-['']">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bell" class="lucide lucide-bell stroke-1.5 w-5 h-5 dark:text-slate-500">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                        </svg>
+                    </div>
+                    <div data-transition="" data-selector=".show" data-enter="transition-all ease-linear duration-150" data-enter-from="absolute !mt-5 invisible opacity-0 translate-y-1" data-enter-to="!mt-1 visible opacity-100 translate-y-0" data-leave="transition-all ease-linear duration-150" data-leave-from="!mt-1 visible opacity-100 translate-y-0" data-leave-to="absolute !mt-5 invisible opacity-0 translate-y-1" class="dropdown-menu absolute z-[9999] hidden invisible opacity-0 translate-y-1" data-state="leave" style="display: none;">
+                        <div class="dropdown-content rounded-md border-transparent bg-white shadow-[0px_3px_10px_#00000017] dark:border-transparent dark:bg-darkmode-600 mt-2 w-[280px] p-5 sm:w-[350px]">
+                            <div class="mb-5 font-medium">
+                                Notifications
+                            </div>
+                            <div class="cursor-pointer relative flex items-center">
+                                <div class="image-fit relative mr-1 h-12 w-12 flex-none">
+                                    <img class="rounded-full" src="dist/images/fakers/profile-9.jpg" alt="Midone - Tailwind Admin Dashboard Template">
+                                        <div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-success dark:border-darkmode-600"></div>
+                                    </div>
+                                    <div class="ml-2 overflow-hidden">
+                                        <div class="flex items-center">
+                                            <a class="mr-5 truncate font-medium" href="">
+                                                Johnny Depp
+                                            </a>
+                                            <div class="ml-auto whitespace-nowrap text-xs text-slate-400">
+                                                03:20 PM
+                                            </div>
+                                        </div>
+                                        <div class="mt-0.5 w-full truncate text-slate-500">
+                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cursor-pointer relative flex items-center mt-5">
+                                    <div class="image-fit relative mr-1 h-12 w-12 flex-none">
+                                        <img class="rounded-full" src="dist/images/fakers/profile-10.jpg" alt="Midone - Tailwind Admin Dashboard Template">
+                                            <div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-success dark:border-darkmode-600"></div>
+                                        </div>
+                                        <div class="ml-2 overflow-hidden">
+                                            <div class="flex items-center">
+                                                <a class="mr-5 truncate font-medium" href="">
+                                                    Johnny Depp
+                                                </a>
+                                                <div class="ml-auto whitespace-nowrap text-xs text-slate-400">
+                                                    05:09 AM
+                                                </div>
+                                            </div>
+                                            <div class="mt-0.5 w-full truncate text-slate-500">
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="cursor-pointer relative flex items-center mt-5">
+                                        <div class="image-fit relative mr-1 h-12 w-12 flex-none">
+                                            <img class="rounded-full" src="dist/images/fakers/profile-7.jpg" alt="Midone - Tailwind Admin Dashboard Template">
+                                                <div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-success dark:border-darkmode-600"></div>
+                                            </div>
+                                            <div class="ml-2 overflow-hidden">
+                                                <div class="flex items-center">
+                                                    <a class="mr-5 truncate font-medium" href="">
+                                                        Denzel Washington
+                                                    </a>
+                                                    <div class="ml-auto whitespace-nowrap text-xs text-slate-400">
+                                                        06:05 AM
+                                                    </div>
+                                                </div>
+                                                <div class="mt-0.5 w-full truncate text-slate-500">
+                                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cursor-pointer relative flex items-center mt-5">
+                                            <div class="image-fit relative mr-1 h-12 w-12 flex-none">
+                                                <img class="rounded-full" src="dist/images/fakers/profile-7.jpg" alt="Midone - Tailwind Admin Dashboard Template">
+                                                    <div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-success dark:border-darkmode-600"></div>
+                                                </div>
+                                                <div class="ml-2 overflow-hidden">
+                                                    <div class="flex items-center">
+                                                        <a class="mr-5 truncate font-medium" href="">
+                                                            Tom Cruise
+                                                        </a>
+                                                        <div class="ml-auto whitespace-nowrap text-xs text-slate-400">
+                                                            05:09 AM
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-0.5 w-full truncate text-slate-500">
+                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="cursor-pointer relative flex items-center mt-5">
+                                                <div class="image-fit relative mr-1 h-12 w-12 flex-none">
+                                                    <img class="rounded-full" src="dist/images/fakers/profile-14.jpg" alt="Midone - Tailwind Admin Dashboard Template">
+                                                        <div class="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white bg-success dark:border-darkmode-600"></div>
+                                                    </div>
+                                                    <div class="ml-2 overflow-hidden">
+                                                        <div class="flex items-center">
+                                                            <a class="mr-5 truncate font-medium" href="">
+                                                                Al Pacino
+                                                            </a>
+                                                            <div class="ml-auto whitespace-nowrap text-xs text-slate-400">
+                                                                01:10 PM
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-0.5 w-full truncate text-slate-500">
+                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown user-menu-wrapper {{ is_granted(impersonator_permission) ? 'user-is-impersonated' }} mx-0">
+                                        <button class="cursor-pointer text-white flex items-center justify-center text-lg font-medium intro-x h-8 w-8 overflow-hidden rounded-full shadow-lg" style="background-color: var(--main-color);" type="button" data-bs-toggle="dropdown" data-bs-offset="0,5" aria-expanded="false">
+                                            {{ ea.userMenu.name|first }}
+                                        </button>
+                                        {{ user_menu_dropdown }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock %}
+                        

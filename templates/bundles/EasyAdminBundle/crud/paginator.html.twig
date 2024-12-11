@@ -1,0 +1,52 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var paginator \EasyCorp\Bundle\EasyAdminBundle\Orm\EntityPaginator #}
+{% trans_default_domain 'EasyAdminBundle' %}
+
+<div class="list-pagination">
+    <div class="list-pagination-counter">
+        {% if paginator.hasPreviousPage or paginator.hasNextPage %}
+            <nav class="pager list-pagination-paginator {{ not paginator.hasPreviousPage ? 'first-page' }} {{ not paginator.hasNextPage ? 'last-page' }}">
+                <ul class="pagination">
+                    <li class="page-item page-item-previous {{ not paginator.hasPreviousPage ? 'disabled' }}">
+                        <a class="custom-button custom-button-hover" href="{{ not paginator.hasPreviousPage ? '#' : paginator.generateUrlForPage(paginator.previousPage) }}">
+                            {% if 'rtl' == ea.i18n.textDirection %}
+                                <twig:ea:Icon name="internal:chevron-right" class="" aria-hidden="true" />
+                            {% else %}
+                                <twig:ea:Icon name="internal:chevron-left" class="" aria-hidden="true" />
+                            {% endif %}
+                        </a>
+                    </li>
+
+                    {% if render_detailed_pagination is defined ? render_detailed_pagination : true %}
+                        {% for page in paginator.pageRange %}
+                            <li class="page-item {{ page == paginator.currentPage ? 'active' }} {{ page is null ? 'disabled' }}">
+                                {% if page is null %}
+                                    <span class="custom-button custom-button-hover">&hellip;</span>
+                                {% else %}
+                                    <a class="custom-button {{ page != paginator.currentPage ? 'custom-button-hover' }}" href="{{ paginator.generateUrlForPage(page) }}">{{ page }}</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="page-item active {{ paginator.currentPage is null ? 'disabled' }}">
+                            <a class="custom-button custom-button-hover" href="{{ paginator.generateUrlForPage(paginator.currentPage) }}">{{ paginator.currentPage }}</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item page-item-next {{ not paginator.hasNextPage ? 'disabled' }}">
+                        <a class="custom-button custom-button-hover" href="{{ not paginator.hasNextPage ? '#' : paginator.generateUrlForPage(paginator.nextPage) }}">
+                            {% if 'rtl' == ea.i18n.textDirection %}
+                                <twig:ea:Icon name="internal:chevron-left" class="" aria-hidden="true" />
+                            {% else %}
+                                <twig:ea:Icon name="internal:chevron-right" class="" aria-hidden="true" />
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+    <p>Test</p>
+  
+</div>
