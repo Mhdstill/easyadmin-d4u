@@ -43,9 +43,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Operation::class, mappedBy: 'users')]
     private Collection $operations;
 
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $job = null;
+
+    /**
+     * @var Collection<int, Notification>
+     */
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'source')]
+    private Collection $notifications;
+
+    /**
+     * @var Collection<int, NotificationRead>
+     */
+    #[ORM\OneToMany(targetEntity: NotificationRead::class, mappedBy: 'user')]
+    private Collection $notificationReads;
+
     public function __construct()
     {
         $this->operations = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->notificationReads = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,5 +176,100 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getJob(): ?string
+    {
+        return $this->job;
+    }
+
+    public function setJob(?string $job): static
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setSource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getSource() === $this) {
+                $notification->setSource(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, NotificationRead>
+     */
+    public function getNotificationReads(): Collection
+    {
+        return $this->notificationReads;
+    }
+
+    public function addNotificationRead(NotificationRead $notificationRead): static
+    {
+        if (!$this->notificationReads->contains($notificationRead)) {
+            $this->notificationReads->add($notificationRead);
+            $notificationRead->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationRead(NotificationRead $notificationRead): static
+    {
+        if ($this->notificationReads->removeElement($notificationRead)) {
+            if ($notificationRead->getUser() === $this) {
+                $notificationRead->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

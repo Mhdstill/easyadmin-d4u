@@ -2,6 +2,11 @@ twig:
     file_name_pattern: '*.twig'
     paths:
         '%kernel.project_dir%/templates': App
+    default_path: '%kernel.project_dir%/templates'
+    date:
+        format: 'd/m/Y H:i'
+        interval_format: '%%d jours'
+        timezone: 'Europe/Paris'
 
 when@test:
     twig:

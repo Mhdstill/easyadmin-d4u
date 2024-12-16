@@ -40,13 +40,19 @@ body .wrapper {
 }
 
 /* Active menu item styles */
-#main-menu .menu .menu-item.active,
-#main-menu .menu .menu-item.active:hover a,
-#main-menu .menu .menu-item.active:not(:hover) a {
-    background-color: rgb(241, 245, 249) !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+@media screen and (min-width:991.99px) {
+
+    #main-menu .menu>.menu-item.active,
+    #main-menu .menu>.menu-item.active:hover>a,
+    #main-menu .menu>.menu-item.active>a,
+    #main-menu .menu>.menu-item.active:not(:hover)>a,
+    #main-menu .menu>.menu-item.active>a i {
+        background-color: unset !important;
+        color: white !important;
+    }
 }
+
+
 
 #main-menu .menu .menu-item.active a {
     color: black !important;
@@ -55,9 +61,18 @@ body .wrapper {
 #main-menu .menu .menu-item.active i {
     color: var(--main-color) !important;
 }
+#main-menu .menu .submenu .menu-item.active {
+    background-color: unset !important;
+}
+#main-menu .menu .submenu .menu-item.active a,
+#main-menu .menu .submenu .menu-item.active i,
+#main-menu .menu .submenu .menu-item.active .menu-item-label {
+    color: white !important;
+}
+
 
 /* Menu item hover state */
-#main-menu .menu .menu-item:hover {
+#main-menu .menu .menu-item:not(.expanded):not(.submenu .menu-item):hover {
     background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
@@ -68,12 +83,19 @@ body .wrapper {
     margin-right: 10px !important;
 }
 
+#main-menu .submenu .menu-item-contents,
+#main-menu .submenu .menu-item-contents i,
+#main-menu .submenu .menu-item-contents a,
+#main-menu .submenu .menu-item-contents .menu-item-label {
+    color: #ffffffb3 !important;
+}
+
 #main-menu .menu .menu-item-contents {
     font-size: 14px !important;
     font-variation-settings: normal !important;
     letter-spacing: 0.35px !important;
     line-height: 20px !important;
-    font-weight: normal !important;
+    font-weight: 300 !important;
     height: 50px !important;
     display: flex !important;
     align-items: center !important;
@@ -96,8 +118,16 @@ body .wrapper {
 }
 
 #main-menu .menu .menu-item .submenu-toggle .submenu-toggle-icon {
-    float: right !important;
     color: white !important;
+    position: absolute !important;
+    right: 1rem !important;
+}
+
+/* Submenu styles */
+.has-submenu .submenu {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
 }
 
 /* Content area styles */
@@ -107,7 +137,7 @@ body .wrapper {
 
 .main-content {
     background-color: rgb(241, 245, 249) !important;
-    padding: 0 22px !important;
+    padding: 0 22px 3rem 22px !important;
     border-radius: 30px !important;
 }
 
@@ -115,12 +145,17 @@ body .wrapper {
 .form-fieldset {
     background-color: white !important;
     box-shadow: rgba(0, 0, 0, 0.043) 0px 3px 5px 0px !important;
+    border: 1px solid rgb(226, 232, 240);
     border-radius: 10px !important;
     padding: 1.25rem !important;
 }
 
 .main-content .content-header {
     background-color: rgb(241, 245, 249) !important;
+    display: flex !important;
+    vertical-align: middle !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
 .main-content .content-header .title {
@@ -137,6 +172,10 @@ body .wrapper {
 }
 
 /* Celui avant et apres l'active */
+#main-menu .menu .menu-item {
+    padding-right: 1.25rem !important;
+}
+
 #main-menu .menu .menu-item:has(+ .menu-item.active) a {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 10000px !important;
@@ -197,7 +236,7 @@ body .wrapper {
     padding: 0.5rem 0.75rem !important;
     border-radius: 0.375rem !important;
     cursor: pointer !important;
-    font-weight: normal !important;
+    font-weight: 300 !important;
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px !important;
 }
 
@@ -228,6 +267,46 @@ body .wrapper {
     color: rgb(15, 23, 42) !important;
 }
 
+.btn-danger {
+    transition: all 0.2s ease-in-out !important;
+    border: 1px solid !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.375rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    margin-right: 0.5rem !important;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px !important;
+}
+
+.btn-danger:focus {
+    --ring-color: rgb(220, 38, 38) !important;
+    --ring-opacity: 0.2 !important;
+    box-shadow: 0 0 0 4px var(--ring-color) !important;
+    outline: none !important;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background-color: rgba(220, 38, 38, 0.9) !important;
+    border-color: rgba(220, 38, 38, 0.9) !important;
+}
+
+.btn-danger:not(button) {
+    text-align: center !important;
+}
+
+.btn-danger:disabled {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+
+.btn-danger {
+    background-color: rgb(220, 38, 38) !important;
+    border-color: rgb(220, 38, 38) !important;
+    color: white !important;
+}
 
 
 
@@ -250,7 +329,8 @@ body .wrapper {
     text-align: center !important;
 }
 
-.main-content .table thead th a {
+.main-content .table thead th a,
+.main-content .table thead th .action-label {
     color: rgb(100, 116, 139) !important;
     font-family: var(--main-family) !important;
     font-size: 14px !important;
@@ -308,7 +388,7 @@ body .wrapper {
     justify-content: center !important;
     padding: 0.5rem 0.75rem !important;
     border-radius: 0.375rem !important;
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     cursor: pointer !important;
     min-width: 40px !important;
     height: 38px !important;
@@ -319,6 +399,10 @@ body .wrapper {
 
 .custom-button-hover:hover {
     @apply bg-gray-50;
+}
+
+.page-item-previous {
+    text-align: right !important;
 }
 
 .page-item.active .custom-button {
@@ -334,8 +418,7 @@ body .wrapper {
     box-shadow: none !important;
 }
 
-.custom-button-hover:hover:not(:disabled) 
-{
+.custom-button-hover:hover:not(:disabled) {
     border: 1px solid #e2e8f0 !important;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
@@ -350,8 +433,7 @@ body .wrapper {
 }
 
 
-.custom-button:hover:not(:disabled)
-{
+.custom-button:hover:not(:disabled) {
     background-color: rgba(226, 232, 240, 0.2) !important;
     border-opacity: 0.9 !important;
 }
@@ -361,12 +443,6 @@ body .wrapper {
 .custom-button:disabled {
     opacity: 0.7 !important;
     cursor: not-allowed !important;
-}
-
-@media (min-width: 640px) {
-    .custom-button {
-        width: auto !important;
-    }
 }
 
 .dark .custom-button {
@@ -394,3 +470,247 @@ body .wrapper {
 .pagination {
     @apply flex items-center gap-2;
 }
+
+
+
+
+
+
+
+/** Form **/
+input,
+textarea,
+select {
+    transition: all 200ms ease-in-out !important;
+    width: 100% !important;
+    font-size: 0.875rem !important;
+    border: 1px solid rgb(226, 232, 240) !important;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05) !important;
+    border-radius: 0.375rem !important;
+    padding: 0.5rem 0.75rem !important;
+    block-size: unset !important;
+}
+
+input::placeholder {
+    color: rgba(148, 163, 184, 0.9) !important;
+}
+
+input:disabled {
+    background-color: rgb(241, 245, 249) !important;
+    cursor: not-allowed !important;
+    border-color: transparent !important;
+}
+
+input[readonly] {
+    background-color: rgb(241, 245, 249) !important;
+    cursor: not-allowed !important;
+    border-color: transparent !important;
+}
+
+.form-widget .custom-file-input:focus~.custom-file-label,
+.form-widget .form-select:focus,
+.form-widget input.form-check-input:focus,
+.form-widget input.form-control:focus,
+.form-widget textarea.form-control:focus {
+    box-shadow: 0px 0px 0px 4px rgba(30, 58, 138, 0.2) !important;
+    border-color: rgba(30, 58, 138, 0.4) !important;
+}
+
+.form-group label,
+.form-group legend.col-form-label {
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.35px !important;
+    line-height: 20px !important;
+    color: rgb(71, 85, 105) !important;
+}
+
+.form-inline input {
+    flex: 1 !important;
+}
+
+.input-group input {
+    border-radius: 0 !important;
+    z-index: 10 !important;
+}
+
+.input-group input:first-child {
+    border-top-left-radius: 0.375rem !important;
+    border-bottom-left-radius: 0.375rem !important;
+}
+
+.input-group input:last-child {
+    border-top-right-radius: 0.375rem !important;
+    border-bottom-right-radius: 0.375rem !important;
+}
+
+.input-group input:not(:first-child) {
+    border-left-color: transparent !important;
+}
+
+.form-fieldset {
+    padding: 0 !important;
+}
+
+.form-fieldset-header {
+    padding-bottom: 1.25rem !important;
+    border-bottom: 1px solid rgb(226, 232, 240) !important;
+    color: rgb(71, 85, 105) !important;
+    letter-spacing: 0.35px !important;
+    line-height: 20px !important;
+}
+
+.form-fieldset-header .form-fieldset-title .form-fieldset-title-content {
+    font-weight: 500 !important;
+}
+
+.form-fieldset-body {
+    padding-top: 1.25rem !important;
+}
+
+/* Style du checkbox dans le header */
+.form-check-input.form-batch-checkbox-all,
+.form-check-input.form-batch-checkbox {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    border-radius: 3px !important;
+    border: 1px solid rgb(226, 232, 240) !important;
+    padding: 0 !important;
+}
+
+/* Style quand coché */
+.form-check-input.form-batch-checkbox-all:checked,
+.form-check-input.form-batch-checkbox:checked {
+    background-color: rgb(30, 58, 138) !important;
+    border-color: rgb(30, 58, 138) !important;
+}
+
+
+
+/** Responsive **/
+.responsive-header {
+    background-color: var(--main-color) !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 0 1.25rem 0 !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+.responsive-header #responsive-header-logo {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.responsive-header #navigation-toggler {
+    filter: opacity(100%) !important;
+}
+
+.responsive-header.fixed {
+    position: fixed !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    padding: 1rem !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    background-color: rgba(30, 64, 175, 0.9) !important;
+}
+
+
+
+
+
+
+
+/** Dropdown **/
+.dropdown-menu .dropdown-header,
+.dropdown-menu .dropdown-item {
+    padding: 1.20rem 1rem !important;
+    font-size: 14px !important;
+    letter-spacing: 0.35px !important;
+    line-height: 20px !important;
+    font-weight: 400 !important;
+}
+
+.dropdown-menu {
+    border-radius: 0.375rem !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.85 !important;
+}
+
+.modal-content {
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow:  rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;
+}
+
+.modal-body {
+    border-radius: 8px !important;
+    color: rgb(107, 114, 128) !important;
+    font-weight: 400 !important;
+}
+.modal-footer {
+    background-color: white !important;
+}
+
+/** Mobile Only **/
+@media screen and (max-width:767px) {
+
+    .form-check-input.form-batch-checkbox-all,
+    .form-check-input.form-batch-checkbox {
+        height: 20px !important;
+        width: 20px !important;
+    }
+
+
+}
+
+/** Responsive Mobile & tablet **/
+@media screen and (max-width:991.98px) {
+    .menu-header:has(.hidden-md) {
+        display: none !important;
+    }
+
+    #main-menu .menu .menu-item:not(.expanded):hover {
+        background-color: unset !important;
+    }
+
+
+    #main-menu .menu .menu-item.active,
+    #main-menu .menu .menu-item.active:hover a,
+    #main-menu .menu .menu-item.active a,
+    #main-menu .menu .menu-item.active:not(:hover) a,
+    #main-menu .menu .menu-item.active a i {
+        background-color: unset !important;
+        color: white !important;
+    }
+
+    .sidebar {
+        background-color: rgb(30, 58, 138) !important;
+        padding-top: 0.8rem !important;
+    }
+
+    #main-menu .menu .menu-item-contents {
+        padding: 0 2rem !important;
+    }
+
+    #main-menu .menu .menu-item {
+        padding-left: 1.25rem !important;
+    }
+
+    #main-menu .menu .submenu a {
+        padding: 0 0.5rem !important;
+    }
+}
+
+@media (min-width: 640px) {
+    .custom-button {
+        width: auto !important;
+    }
+}
+

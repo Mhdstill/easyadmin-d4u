@@ -1,0 +1,6 @@
+crud:
+  action:
+    new: Nouveau
+    edit: Editer
+    detail: Détail
+    index: Liste

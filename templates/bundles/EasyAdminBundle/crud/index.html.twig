@@ -3,9 +3,10 @@
 
 {% block main %}
     <div class="custom-card">
-
         <div class="flex flex-col sm:flex-row sm:items-end xl:items-start" style="margin-bottom: 1.25rem;">
-            <div class="sm:mr-auto xl:flex" id="tabulator-html-filter-form"></div>
+            <div class="sm:mr-auto xl:flex" id="tabulator-html-filter-form">
+        
+            </div>
             <div class="flex sm:mt-0">
                 <button id="tabulator-print" class="custom-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="printer" class="lucide lucide-printer stroke-1.5 mr-2 h-4 w-4">
@@ -82,7 +83,7 @@
             <div class="flex items-center lg:justify-center">
                 {% for action in entity.actions %}
                     {% if action.name == 'edit' %}
-                        <a class="flex items-center mr-3 text-[rgb(51,51,51)] hover:text-blue-700" href="{{ ea_url()
+                        <a class="flex items-center mr-3 text-[rgb(51,51,51)] hover:text-blue-700" style="font-weight: 300 !important;" href="{{ ea_url()
                             .setController(ea.crud.controllerFqcn)
                             .setAction('edit')
                             .setEntityId(entity.primaryKeyValue)
@@ -96,7 +97,7 @@
                     {% endif %}
 
                     {% if action.name == 'delete' %}
-                        <a class="flex items-center text-red-600 hover:text-red-700" href="{{ ea_url()
+                        <a class="flex items-center text-red-600 hover:text-red-700" style="font-weight: 300 !important;" href="{{ ea_url()
                             .setController(ea.crud.controllerFqcn)
                             .setAction('delete')
                             .setEntityId(entity.primaryKeyValue)
@@ -113,7 +114,7 @@
                     {% endif %}
 
                     {% if action.name == 'detail' %}
-                        <a class="flex items-center mr-3 text-gray-600 hover:text-gray-700" href="{{ ea_url()
+                        <a class="flex items-center mr-3 text-gray-600 hover:text-gray-700" style="font-weight: 300 !important;" href="{{ ea_url()
                             .setController(ea.crud.controllerFqcn)
                             .setAction('detail')
                             .setEntityId(entity.primaryKeyValue)
@@ -128,6 +129,45 @@
                 {% endfor %}
             </div>
         {% endif %}
-
     </td>
 {% endblock entity_actions %}
+
+{% block table_head %}
+    <tr>
+        {% if has_batch_actions %}
+            <th style="width: 1.5rem !important; min-width: 1.25rem !important;">
+                <div class="form-check">
+                    <span><input type="checkbox" class="form-check-input form-batch-checkbox-all" id="form-batch-checkbox-all"></span>
+                </div>
+            </th>
+        {% endif %}
+
+        {% set ea_sort_asc = constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Option\\SortOrder::ASC') %}
+        {% set ea_sort_desc = constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Option\\SortOrder::DESC') %}
+        {% for field in entities|filter(e => e.isAccessible)|first.fields ?? [] %}
+            {% set is_searchable = null == ea.crud.searchFields or field.property in ea.crud.searchFields %}
+            {% set is_sorting_field = ea.search.isSortingField(field.property) %}
+            {% set next_sort_direction = is_sorting_field ? (ea.search.sortDirection(field.property) == ea_sort_desc ? ea_sort_asc : ea_sort_desc) : ea_sort_desc %}
+            {% set column_icon = is_sorting_field ? (next_sort_direction == ea_sort_desc ? 'internal:sort-arrow-up' : 'internal:sort-arrow-down') : 'internal:sort-arrows' %}
+
+            <th data-column="{{ field.property }}" class="{{ is_searchable ? 'searchable' }} {{ is_sorting_field ? 'sorted' }} {{ field.isVirtual ? 'field-virtual' }} header-for-{{ field.cssClass|split(' ')|filter(class => class starts with 'field-')|join('') }} text-{{ field.textAlign }}" dir="{{ ea.i18n.textDirection }}">
+                {% if field.isSortable %}
+                    {% set sortable_url = ea_url().set('page', 1).set('sort', { (field.property): next_sort_direction }) %}
+                    {% if ea.usePrettyUrls %}
+                        {% set sortable_url = sortable_url.setController(ea.request.attributes.get('crudControllerFqcn')).setAction('index') %}
+                    {% endif %}
+
+                    <a href="{{ sortable_url }}">
+                        {{ field.label|trans|raw }} <twig:ea:Icon name="{{ column_icon }}" />
+                    </a>
+                {% else %}
+                    <span>{{ field.label|trans|raw }}</span>
+                {% endif %}
+            </th>
+        {% endfor %}
+
+        <th class="{{ ea.crud.showEntityActionsAsDropdown ? 'actions-as-dropdown-table-head' }}" dir="{{ ea.i18n.textDirection }}">
+            <span class="action-label">{{ t('action.entity_actions', ea.i18n.translationParameters, 'EasyAdminBundle')|trans }}</span>
+        </th>
+    </tr>
+{% endblock table_head %}

@@ -1,58 +1,104 @@
-{% extends 'security/base.html.twig' %}
-
-{% block title %}
-    Log in!
-{% endblock %}
-
-{% block body %}
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">
+<html xmlns="http://www.w3.org/1999/xhtml" class="default light" lang="en"><!-- BEGIN: Head --><head>
+        <meta charset="utf-8">
+        <meta name="csrf-token" content="Koo2zWJKliRELq4FawEfkQPg3CJYusp6ppGFZw4O">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Midone admin is super flexible, powerful, clean &amp; modern responsive tailwind admin template with unlimited possibilities.">
+        <meta name="keywords" content="admin template, midone Admin Template, dashboard template, flat admin template, responsive admin template, web app">
+        <meta name="author" content="LEFT4CODE">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>
             Connexion
-        </h1>
-
-        {% if error %}
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </span>
-            </div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                Vous êtes connecté en tant que
-                {{ app.user.userIdentifier }}
-                ,
-                <a href="{{ path('app_logout') }}" class="font-bold underline">
-                    Déconnexion
-                </a>
-            </div>
-        {% endif %}
-
+        </title>
+        <link rel="stylesheet" href="{{ asset('assets/styles/animation.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/styles/login.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/styles/admin.css') }}">
+    </head>
+    <!-- END: Head -->
+    <body>
         <form method="post" action="{{ path('app_login') }}">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">
-                    Email
-                </label>
-                <input type="email" value="{{ last_username }}" name="_username" id="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" autocomplete="email" required autofocus></div>
 
-                <div class="mb-6">
-                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
-                        Mot de passe
-                    </label>
-                    <input type="password" name="_password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" autocomplete="current-password" required></div>
-
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-                        <div class="flex items-center justify-between">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                Se connecter
-                            </button>
-                            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                                Mot de passe oublié ?
+            <div class="p-3 sm:px-8 relative h-screen lg:overflow-hidden bg-primary xl:bg-white dark:bg-darkmode-800 xl:dark:bg-darkmode-600 before:hidden before:xl:block before:content-[''] before:w-[57%] before:-mt-[28%] before:-mb-[16%] before:-ml-[13%] before:absolute before:inset-y-0 before:left-0 before:transform before:rotate-[-4.5deg] before:bg-primary/20 before:rounded-[100%] before:dark:bg-darkmode-400 after:hidden after:xl:block after:content-[''] after:w-[57%] after:-mt-[20%] after:-mb-[13%] after:-ml-[13%] after:absolute after:inset-y-0 after:left-0 after:transform after:rotate-[-4.5deg] after:bg-primary after:rounded-[100%] after:dark:bg-darkmode-700">
+                <div class="container relative z-10 sm:px-10">
+                    <div class="block grid-cols-2 gap-4 xl:grid">
+                        <!-- BEGIN: Login Info -->
+                        <div class="hidden min-h-screen flex-col xl:flex">
+                            <a class="-intro-x flex items-center pt-5" href="">
+                                <img class="w-40" src="{{ asset('logo.svg') }}" alt="Midone - Tailwind Admin Dashboard Template">
                             </a>
+                            <div class="my-auto">
+                                <img class="-intro-x -mt-16 w-1/2" src="{{ asset('assets/images/illustration.svg') }}" alt="Midone - Tailwind Admin Dashboard Template">
+                                <div class="-intro-x mt-10 text-4xl font-medium leading-tight text-white">
+                                    A few more clicks to
+                                    <br>
+                                    sign in to your account.
+                                </div>
+                                <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
+                                    Manage all your e-commerce accounts in one place
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                        <!-- END: Login Info -->
+                        <!-- BEGIN: Login Form -->
+
+                        <div class="my-10 flex h-screen py-5 xl:my-0 xl:h-auto xl:py-0">
+                            <div class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ml-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none">
+
+                                {% if error %}
+                                    <div class="intro-x transition duration-200 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                                        <span class="block sm:inline">
+                                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                                        </span>
+                                    </div>
+                                {% endif %}
+
+                                <h2 class="intro-x text-center text-2xl font-bold xl:text-left xl:text-3xl">
+                                    Connexion
+                                </h2>
+                                <div class="intro-x mt-2 text-center text-slate-400 xl:hidden">
+                                    A few more clicks to sign in to your account. Manage all your
+                                    e-commerce accounts in one place
+                                </div>
+                                <div class="intro-x mt-8">
+                                    <input value="{{ last_username }}" name="_username" id="username" style="padding: 12px 16px !important" type="text" placeholder="Email" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 intro-x block min-w-full px-4 py-3 xl:min-w-[350px]">
+                                    <input name="_password" id="password" style="padding: 12px 16px !important" type="password" placeholder="Password" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 [&amp;[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&amp;:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                </div>
+                                <div class="intro-x mt-4 flex text-xs text-slate-600 dark:text-slate-500 sm:text-sm">
+                                    <div class="mr-auto flex items-center"></div>
+                                    <a href="">
+                                        Mot de passe oublié ?
+                                    </a>
+                                </div>
+
+                                <div class="intro-x mt-5 text-right xl:mt-8 xl:text-right">
+                                    <button type="submit" class="transition duration-200 border shadow-sm inline-flex items-center justify-center rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary w-full px-4 py-3 align-top xl:mr-3 xl:w-32">
+                                        Connexion
+                                    </button>
+                                </div>
+
+                            {#
+                                <div class="intro-x mt-5 text-center xl:mt-8 xl:text-left">
+                                <button type="submit" class="transition duration-200 border shadow-sm inline-flex items-center justify-center rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary w-full px-4 py-3 align-top xl:mr-3 xl:w-32">
+                                Connexion
+                                </button>
+                                <button class="transition duration-200 border shadow-sm inline-flex items-center justify-center rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&amp;:hover:not(:disabled)]:bg-secondary/20 [&amp;:hover:not(:disabled)]:dark:bg-darkmode-100/10 mt-3 w-full px-4 py-3 align-top xl:mt-0 xl:w-32">
+                                Inscription
+                                </button>
+                                </div>
+                                <div class="intro-x mt-10 text-center text-slate-600 dark:text-slate-500 xl:mt-24 xl:text-left" style="text-align: center; text-decoration: underline">
+                                <a class="intro-x mt-10 text-center text-slate-600 dark:text-slate-500 xl:mt-24 xl:text-left" href="">
+                                Développé par DEV4YOU
+                                </a>
+                                </div>
+                            #}
+                            </div>
+                        </div>
+                    <!-- END: Login Form -->
+                    </div>
                 </div>
-            {% endblock %}
-            
+            </div>
+
+        </form>
+
+    </body>
+</html>
