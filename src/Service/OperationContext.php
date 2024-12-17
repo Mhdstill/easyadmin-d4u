@@ -10,7 +10,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 class OperationContext
 {
-    private $session;
 
     public function __construct(
         private RequestStack $requestStack,
@@ -18,7 +17,6 @@ class OperationContext
         private Security $security,
         private UserRepository $userRepository
     ) {
-        $this->session = $requestStack->getSession();
     }
 
     /**
@@ -26,7 +24,8 @@ class OperationContext
      */
     public function setCurrentOperation($operationId): void
     {
-        $this->session->set('current_operation', $operationId);
+        $session = $this->requestStack->getSession();
+        $session->set('current_operation', $operationId);
     }
 
     /**
@@ -35,7 +34,8 @@ class OperationContext
     public function getCurrentOperation(): Operation
     {
         // Récupère le magasin dans la session
-        $operationId = $this->session->get('current_operation');
+        $session = $this->requestStack->getSession();
+        $operationId = $session->get('current_operation');
 
         // Si un magasin est déjà défini, le retourne
         if ($operationId) {
