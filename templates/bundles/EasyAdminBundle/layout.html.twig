@@ -179,7 +179,7 @@
 
             <div class="dropdown user-menu-wrapper {{ is_granted(impersonator_permission) ? 'user-is-impersonated' }} mx-0">
                 <button class="cursor-pointer text-white flex items-center justify-center text-lg font-medium h-8 w-8 overflow-hidden rounded-full shadow-lg" style="background-color: var(--main-color);" type="button" data-bs-toggle="dropdown" data-bs-offset="0,5" aria-expanded="false">
-                    {{ ea.userMenu.name|first }}
+                    {{ app.user.firstName|first }}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li class="dropdown-user-details">
@@ -193,15 +193,19 @@
 
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="" class="dropdown-item">
+                        <a href="{{ path('admin_contact') }}" class="dropdown-item">
                             <i class="fa-regular fa-circle-question"></i>
-                            Aide
+                            Besoin d'aide ?
                         </a>
                     </li>
                     <li>
-                        <a href="" class="dropdown-item">
-                            <i class="fa-regular fa-lock"></i>
-                            Mot de passe
+                        <a href="{{ path('admin', {
+                            crudControllerFqcn: 'App\\Controller\\Admin\\UserCrudController',
+                            crudAction: 'edit',
+                            entityId: app.user.id
+                        }) }}" class="dropdown-item">
+                            <i class="fa-regular fa-user"></i>
+                            Mon Profil
                         </a>
                     </li>
 

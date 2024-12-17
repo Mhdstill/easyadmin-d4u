@@ -58,7 +58,7 @@ class NotificationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function createNotification(bool $flush = true, Operation $operation, string $content, User $source = null, string $targetPath = null)
+    public function createNotification(Operation $operation, string $content, $flush = true, User $source = null, string $targetPath = null)
     {
         $notification = new Notification();
         $notification->setOperation($operation);

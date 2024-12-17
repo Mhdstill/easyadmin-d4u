@@ -61,9 +61,11 @@ body .wrapper {
 #main-menu .menu .menu-item.active i {
     color: var(--main-color) !important;
 }
+
 #main-menu .menu .submenu .menu-item.active {
     background-color: unset !important;
 }
+
 #main-menu .menu .submenu .menu-item.active a,
 #main-menu .menu .submenu .menu-item.active i,
 #main-menu .menu .submenu .menu-item.active .menu-item-label {
@@ -330,7 +332,8 @@ body .wrapper {
 }
 
 .main-content .table thead th a,
-.main-content .table thead th .action-label {
+.main-content .table thead th .action-label,
+.main-content .table thead th span {
     color: rgb(100, 116, 139) !important;
     font-family: var(--main-family) !important;
     font-size: 14px !important;
@@ -646,7 +649,7 @@ input[readonly] {
 .modal-content {
     border: none !important;
     border-radius: 8px !important;
-    box-shadow:  rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px !important;
 }
 
 .modal-body {
@@ -654,6 +657,7 @@ input[readonly] {
     color: rgb(107, 114, 128) !important;
     font-weight: 400 !important;
 }
+
 .modal-footer {
     background-color: white !important;
 }
@@ -713,4 +717,3 @@ input[readonly] {
         width: auto !important;
     }
 }
-

@@ -34,6 +34,6 @@ class NotificationService
             : sprintf("Un(e) %s a été %s", $className, $action);
 
         $operation = $this->operationContext->getCurrentOperation();
-        return $this->notificationRepository->createNotification($flush, $operation, $content, $this->security->getUser(), $targetPath);
+        return $this->notificationRepository->createNotification($operation, $content, $flush, $this->security->getUser(), $targetPath);
     }
 }

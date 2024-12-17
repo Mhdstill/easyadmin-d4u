@@ -1,0 +1,75 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block importmap %}
+    {{ ea_importmap('app') }}
+{% endblock %}
+
+{% block content_title %}
+    DEV4YOU
+{% endblock %}
+
+{% block content %}
+
+    <article class="content">
+        <section class="content-header">
+            <div class="content-header-title">
+                <h1 class="title" style="font-family: Roboto; font-weight: 500 !important; letter-spacing: 0.35px; line-height: 24px;">
+                    Besoin d'aide ?
+                </h1>
+            </div>
+        </section>
+        <section id="main" class="content-body">
+            <div class="custom-card">
+                <div class="px-5 pt-3 sm:px-20">
+                    <div class="text-base font-medium" style="color: rgb(71, 85, 105); font-family: Roboto; font-size: 1.1rem; font-weight: 400; letter-spacing: 0.35px; line-height: 24px;">
+                        Contactez-nous
+                    </div>
+                    <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
+                        <div class="intro-y col-span-12 sm:col-span-6">
+                            <label for="input-firstname" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Prénom
+                            </label>
+                            <input id="input-firstname" type="text" placeholder="John" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700">
+                        </div>
+                        <div class="intro-y col-span-12 sm:col-span-6">
+                            <label for="input-lastname" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Nom
+                            </label>
+                            <input id="input-lastname" type="text" placeholder="Doe" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700">
+                        </div>
+                        <div class="intro-y col-span-12 sm:col-span-6">
+                            <label for="input-email" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Email
+                            </label>
+                            <input id="input-email" type="email" placeholder="exemple@email.com" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700">
+                        </div>
+                        <div class="intro-y col-span-12 sm:col-span-6">
+                            <label for="input-phone" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Téléphone
+                            </label>
+                            <input id="input-phone" type="tel" placeholder="06 12 34 56 78" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700">
+                        </div>
+                        <div class="intro-y col-span-12">
+                            <label for="input-subject" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Sujet
+                            </label>
+                            <input id="input-subject" type="text" placeholder="Le sujet de votre message" class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700">
+                        </div>
+                        <div class="intro-y col-span-12">
+                            <label for="input-message" class="inline-block mb-2" style="letter-spacing: 0.35px; line-height: 20px; font-family: Roboto; font-size: 14px;color: rgb(71, 85, 105);">
+                                Message
+                            </label>
+                            <textarea id="input-message" rows="4" placeholder="Votre message..." class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700"></textarea>
+                        </div>
+                        <div class="intro-y col-span-12 mt-3 flex items-center justify-center sm:justify-end">
+                            <button class="btn btn-primary">
+                                Envoyer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+{% endblock %}

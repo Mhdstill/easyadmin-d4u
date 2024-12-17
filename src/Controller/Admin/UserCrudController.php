@@ -61,13 +61,14 @@ class UserCrudController extends AdminController
         ;
     }
 
+    /*
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
             ->add('email')
             ->add('password')
         ;
-    }
+    } */
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {

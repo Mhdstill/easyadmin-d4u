@@ -18,6 +18,15 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/index.html.twig', ["title" => "Dashboard"]);
     }
 
+    #[Route('/admin/contact', name: 'admin_contact')]
+    public function contact(): Response
+    {
+        
+        return $this->render('admin/contact.html.twig', [
+            'title' => 'Contact'
+        ]);
+    }
+
     public function configureMenuItems(): iterable
     {
         yield MenuItem::section()->setCssClass('hidden-md');
