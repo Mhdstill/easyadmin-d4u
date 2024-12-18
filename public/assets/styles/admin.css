@@ -330,10 +330,13 @@ body .wrapper {
     padding: 1rem 1.25rem !important;
     text-align: center !important;
 }
-
 .table > :not(caption) > * > * {
-    background-color: unset !important;
+    background-color: white !important;
     color: unset !important;
+}
+
+.table > :not(caption) > tr:nth-child(even) > * {
+    background-color: #f8fafc !important;
 }
 
 .main-content .table thead th a,
