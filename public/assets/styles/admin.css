@@ -333,6 +333,7 @@ body .wrapper {
 
 .table > :not(caption) > * > * {
     background-color: unset !important;
+    color: unset !important;
 }
 
 .main-content .table thead th a,
