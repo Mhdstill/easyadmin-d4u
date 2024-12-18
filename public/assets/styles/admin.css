@@ -331,19 +331,6 @@ body .wrapper {
     text-align: center !important;
 }
 
-.table> :not(caption)>*>* {
-    background-color: white !important;
-    color: rgb(51, 51, 51) !important;
-    font-size: 14px !important;
-    font-weight: 300 !important;
-    letter-spacing: 0.35px !important;
-    line-height: 20px !important;
-}
-
-.table> :not(caption)>tr:nth-child(even)>* {
-    background-color: #f8fafc !important;
-}
-
 .main-content .table thead th a,
 .main-content .table thead th .action-label,
 .main-content .table thead th span {
@@ -390,8 +377,6 @@ body .wrapper {
 .content-top {
     block-size: unset !important;
     padding: 11px 0 !important;
-    box-shadow: none !important;
-    border-bottom: 1px solid rgb(226, 232, 240) !important;
 }
 
 
