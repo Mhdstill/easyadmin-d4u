@@ -26,6 +26,16 @@
             });
         });
     </script>
+    <script>
+        // Forcer le thème clair au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            // Supprimer la classe dark si elle existe
+            document.documentElement.classList.remove('dark');
+            
+            // Stocker la préférence dans le localStorage
+            localStorage.setItem('appearance-mode', 'light');
+        });
+    </script>
     <link rel="stylesheet" href="{{ asset('assets/styles/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/animation.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
