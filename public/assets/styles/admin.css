@@ -390,6 +390,8 @@ body .wrapper {
 .content-top {
     block-size: unset !important;
     padding: 11px 0 !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid rgb(226, 232, 240) !important;
 }
 
 
