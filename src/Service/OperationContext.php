@@ -22,10 +22,10 @@ class OperationContext
     /**
      * Définit le magasin actuel dans la session.
      */
-    public function setCurrentOperation($operationId): void
+    public function setCurrentOperation(Operation $operation): void
     {
         $session = $this->requestStack->getSession();
-        $session->set('current_operation', $operationId);
+        $session->set('current_operation', $operation);
     }
 
     /**
@@ -33,16 +33,10 @@ class OperationContext
      */
     public function getCurrentOperation(): Operation
     {
-        // Récupère le magasin dans la session
         $session = $this->requestStack->getSession();
-        $operationId = $session->get('current_operation');
+        $operation = $session->get('current_operation');
 
-        // Si un magasin est déjà défini, le retourne
-        if ($operationId) {
-            return $this->operationRepository->find($operationId);
-        }
-
-        return $this->updateCurrentOperation();
+        return $operation ?: $this->updateCurrentOperation();
     }
 
     public function updateCurrentOperation(): Operation

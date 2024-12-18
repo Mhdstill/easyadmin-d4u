@@ -572,8 +572,8 @@ input[readonly] {
 }
 
 /* Style du checkbox dans le header */
-.form-check-input.form-batch-checkbox-all,
-.form-check-input.form-batch-checkbox {
+.form-check-input,
+.form-check-input {
     width: 16px !important;
     height: 16px !important;
     margin: 0 !important;
@@ -584,8 +584,8 @@ input[readonly] {
 }
 
 /* Style quand coché */
-.form-check-input.form-batch-checkbox-all:checked,
-.form-check-input.form-batch-checkbox:checked {
+.form-check-input:checked,
+.form-check-input:checked {
     background-color: rgb(30, 58, 138) !important;
     border-color: rgb(30, 58, 138) !important;
 }
@@ -665,8 +665,7 @@ input[readonly] {
 /** Mobile Only **/
 @media screen and (max-width:767px) {
 
-    .form-check-input.form-batch-checkbox-all,
-    .form-check-input.form-batch-checkbox {
+    .form-check-input {
         height: 20px !important;
         width: 20px !important;
     }
