@@ -331,6 +331,10 @@ body .wrapper {
     text-align: center !important;
 }
 
+.table > :not(caption) > * > * {
+    background-color: #f8fafc !important;
+}
+
 .main-content .table thead th a,
 .main-content .table thead th .action-label,
 .main-content .table thead th span {
