@@ -330,13 +330,17 @@ body .wrapper {
     padding: 1rem 1.25rem !important;
     text-align: center !important;
 }
-.table > :not(caption) > * > * {
+
+.table> :not(caption)>*>* {
     background-color: white !important;
-    color: unset !important;
+    color: rgb(51, 51, 51) !important;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.35px !important;
+    line-height: 20px !important;
 }
 
-.table > :not(caption) > tr:nth-child(even) > * {
-    color: rgb(51, 51, 51) !important;
+.table> :not(caption)>tr:nth-child(even)>* {
     background-color: #f8fafc !important;
 }
 
